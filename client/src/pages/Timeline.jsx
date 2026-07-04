@@ -1,5 +1,13 @@
+import TimelineHeader from "../features/timeline/components/TimelineHeader";
+import EraTimeline from "../features/timeline/components/EraTimeline";
+
 function Timeline() {
-  return <h1>Timeline Page</h1>;
+  return (
+    <>
+      <TimelineHeader />
+      <EraTimeline />
+    </>
+  );
 }
 
 export default Timeline;

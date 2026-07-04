@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String    @unique
+  password    String
+  role        Role      @default(USER)
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  favorites   Favorite[]
+  suggestions Suggestion[]
+}
+
+model Era {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  slug          String   @unique
+
+  duration      String
+  climate       String
+  dominantLife  String
+
+  description   String   @db.Text
+
+  bannerImage   String?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  dinosaurs     Dinosaur[]
+}
+
+model Dinosaur {
+  id              Int      @id @default(autoincrement())
+
+  name            String
+  scientificName  String?
+  slug            String   @unique
+
+  diet            Diet
+
+  height          String
+  length          String
+  weight          String?
+
+  habitat         String?
+  region          String?
+
+  description     String   @db.Text
+  funFacts        String?  @db.Text
+
+  image           String?
+  model3D         String?
+  audioGuide      String?
+
+  eraId           Int
+  era             Era      @relation(fields: [eraId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  favorites       Favorite[]
+}
+
+model Favorite {
+  id           Int      @id @default(autoincrement())
+
+  userId       Int
+  dinosaurId   Int
+
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dinosaur     Dinosaur  @relation(fields: [dinosaurId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime @default(now())
+
+  @@unique([userId, dinosaurId])
+}
+
+model Suggestion {
+  id           Int      @id @default(autoincrement())
+
+  title        String
+  description  String   @db.Text
+
+  status       SuggestionStatus @default(PENDING)
+
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Diet {
+  HERBIVORE
+  CARNIVORE
+  OMNIVORE
+}
+
+enum SuggestionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}

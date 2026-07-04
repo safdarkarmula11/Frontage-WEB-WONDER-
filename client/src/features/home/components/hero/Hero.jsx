@@ -1,6 +1,6 @@
 import HeroContent from "./HeroContent";
 import ScrollIndicator from "./ScrollIndicator";
-import heroBg from "../../../assets/images/hero-bg.jpg";
+import heroBg from "../../../../assets/images/hero-bg.jpg";
 
 function Hero() {
   return (

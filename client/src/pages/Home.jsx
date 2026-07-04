@@ -1,9 +1,11 @@
-import Hero from "../components/home/hero/Hero";
+import Hero from "../features/home/components/hero/Hero";
+import FeaturedExhibits from "../features/home/components/featured-exhibits/FeaturedExhibits";
 
 function Home() {
   return (
     <>
       <Hero />
+      <FeaturedExhibits />
     </>
   );
 }

@@ -6,7 +6,7 @@ function MainLayout() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="min-h-screen">
         <Outlet />
       </main>
       <Footer />
