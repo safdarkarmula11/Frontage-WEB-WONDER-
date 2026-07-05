@@ -5,17 +5,12 @@ html {
 }
 
 body {
-  @apply bg-stone-950 text-white antialiased;
+  margin: 0;
+  background-color: #000;
+  color: white;
+  font-family: system-ui, sans-serif;
 }
 
 * {
-  @apply box-border;
-}
-
-a {
-  @apply no-underline;
-}
-
-button {
-  @apply cursor-pointer;
+  box-sizing: border-box;
 }

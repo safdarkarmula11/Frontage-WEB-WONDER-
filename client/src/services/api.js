@@ -1,7 +1,5 @@
-import axios from "axios";
+import featuredDinosaurs from "../data/featuredDinosaurs";
 
-const api = axios.create({
-  baseURL: "http://localhost:5000/api",
-});
-
-export default api;
+export function getFeaturedDinosaurs() {
+  return featuredDinosaurs;
+}

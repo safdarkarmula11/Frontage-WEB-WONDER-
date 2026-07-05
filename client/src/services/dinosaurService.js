@@ -1,13 +1,6 @@
-import dinosaurs from "../features/exhibits/data/dinosaurs";
+import API_URL from "./api";
 
-export function getAllDinosaurs() {
-  return dinosaurs;
-}
-
-export function getDinosaursByEra(era) {
-  return dinosaurs.filter((d) => d.era === era);
-}
-
-export function getDinosaurById(id) {
-  return dinosaurs.find((d) => d.id === Number(id));
+export async function getFeaturedDinosaurs() {
+  const response = await fetch(`${API_URL}/dinosaurs/featured`);
+  return await response.json();
 }
