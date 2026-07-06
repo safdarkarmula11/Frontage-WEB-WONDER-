@@ -1,26 +1,34 @@
-function DinosaurHero() {
+function DinosaurHero({ dinosaur }) {
   return (
-    <section className="bg-black py-24">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-10 px-6 lg:flex-row">
+    <section className="bg-black py-20">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
+
         <img
-          src="https://placehold.co/600x400"
-          alt="Tyrannosaurus Rex"
-          className="w-full max-w-xl rounded-2xl"
+          src={dinosaur.image}
+          alt={dinosaur.name}
+          className="h-[500px] w-full rounded-xl object-cover"
         />
 
-        <div>
-          <p className="mb-2 text-green-400">
-            Late Cretaceous
+        <div className="flex flex-col justify-center">
+
+          <p className="mb-3 text-green-500">
+            {dinosaur.era?.name}
           </p>
 
-          <h1 className="mb-4 text-6xl font-bold text-white">
-            Tyrannosaurus Rex
+          <h1 className="text-5xl font-black text-white">
+            {dinosaur.name}
           </h1>
 
-          <p className="italic text-gray-400">
-            Tyrannosaurus rex
+          <h2 className="mt-3 text-2xl italic text-neutral-400">
+            {dinosaur.scientificName}
+          </h2>
+
+          <p className="mt-8 text-lg leading-8 text-neutral-300">
+            {dinosaur.description}
           </p>
+
         </div>
+
       </div>
     </section>
   );

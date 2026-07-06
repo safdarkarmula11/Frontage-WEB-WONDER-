@@ -1,59 +1,38 @@
 import { Link } from "react-router-dom";
-import heroImage from "../../../assets/images/hero.jpg";
 
 function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Background */}
-      <img
-        src={heroImage}
-        alt="Jurassic Forest"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/70"></div>
-
-      {/* Content */}
-      <div className="relative mx-auto flex w-full max-w-7xl px-6">
+    <section className="flex min-h-screen items-center bg-black">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="max-w-3xl">
-          <p className="mb-4 text-lg font-medium uppercase tracking-[0.3em] text-green-400">
-            Welcome to JurassicVerse
-          </p>
-
-          <h1 className="mb-6 text-6xl font-extrabold leading-tight text-white">
-            Explore the World Before Humans
+          <h1 className="text-6xl font-black leading-tight text-white">
+            Welcome to
+            <span className="block text-green-500">
+              JurassicVerse
+            </span>
           </h1>
 
-          <p className="mb-10 text-xl leading-8 text-gray-300">
-            Discover dinosaurs, fossils, prehistoric ecosystems, and the
-            history of life on Earth through an immersive digital museum.
+          <p className="mt-8 text-xl leading-8 text-neutral-300">
+            Discover dinosaurs from every era through an interactive digital
+            museum powered by real data.
           </p>
 
-          <div className="flex gap-5">
+          <div className="mt-10 flex gap-4">
             <Link
               to="/explore"
-              className="rounded-lg bg-green-600 px-7 py-3 font-semibold text-white transition hover:bg-green-700"
+              className="rounded-lg bg-green-600 px-8 py-4 font-semibold text-white hover:bg-green-700"
             >
               Explore Dinosaurs
             </Link>
 
             <Link
               to="/timeline"
-              className="rounded-lg border border-white px-7 py-3 font-semibold text-white transition hover:bg-white hover:text-black"
+              className="rounded-lg border border-white px-8 py-4 font-semibold text-white hover:bg-white hover:text-black"
             >
               View Timeline
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center text-gray-300">
-        <p className="mb-2 text-sm uppercase tracking-widest">
-          Scroll
-        </p>
-        <span className="text-2xl">↓</span>
       </div>
     </section>
   );

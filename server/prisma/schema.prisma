@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Era {
+  id           Int         @id @default(autoincrement())
+  name         String      @unique
+  slug         String      @unique
+  duration     String
+  climate      String
+  description  String      @db.Text
+  bannerImage  String?
+
+  dinosaurs    Dinosaur[]
+
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Dinosaur {
+  id              Int      @id @default(autoincrement())
+
+  eraId           Int
+  era             Era      @relation(fields: [eraId], references: [id])
+
+  name            String
+  scientificName  String
+
+  diet            String
+
+  height          String
+  length          String
+  weight          String
+  speed           String
+
+  habitat         String
+
+  image           String
+
+  description     String   @db.Text
+
+  isFeatured      Boolean  @default(false)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+
+  name      String
+
+  email     String   @unique
+
+  password  String
+
+  role      String   @default("admin")
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}

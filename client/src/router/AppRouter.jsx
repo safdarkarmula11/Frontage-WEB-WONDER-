@@ -3,10 +3,12 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 
 import Home from "../pages/Home/Home";
-import Timeline from "../pages/Timeline/Timeline";
 import Explore from "../pages/Explore/Explore";
+import Timeline from "../pages/Timeline/Timeline";
 import Dinosaur from "../pages/Dinosaur/Dinosaur";
 import About from "../pages/About/About";
+import Login from "../pages/Login/Login";
+import NotFound from "../pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -18,12 +20,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "timeline",
-        element: <Timeline />,
-      },
-      {
         path: "explore",
         element: <Explore />,
+      },
+      {
+        path: "timeline",
+        element: <Timeline />,
       },
       {
         path: "dinosaur/:id",
@@ -33,7 +35,15 @@ const router = createBrowserRouter([
         path: "about",
         element: <About />,
       },
+      {
+        path: "login",
+        element: <Login />,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

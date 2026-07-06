@@ -1,30 +1,49 @@
-import TimelineHero from "./components/TimelineHero";
-import TimelineNav from "./components/TimelineNav";
-import ExtinctionSection from "./components/ExtinctionSection";
+import { useEffect, useState } from "react";
 
-import TimelineItem from "../../components/TimelineItem/TimelineItem";
-import timeline from "../../data/timeline";
+import Loader from "../../components/common/Loader/Loader";
+import ErrorState from "../../components/common/ErrorState/ErrorState";
+import SectionTitle from "../../components/common/SectionTitle/SectionTitle";
+
+import TimelineList from "./components/TimelineList";
+
+import { getAllEras } from "../../services/eraService";
 
 function Timeline() {
+  const [eras, setEras] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadEras() {
+      try {
+        const data = await getAllEras();
+        setEras(data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load timeline.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadEras();
+  }, []);
+
+  if (loading) return <Loader />;
+
+  if (error) return <ErrorState message={error} />;
+
   return (
-    <>
-      <TimelineHero />
+    <section className="bg-black py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionTitle
+          title="Geological Timeline"
+          subtitle="Explore the major eras of the dinosaurs."
+        />
 
-      <TimelineNav />
-
-      <section className="bg-black py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          {timeline.map((era) => (
-            <TimelineItem
-              key={era.id}
-              era={era}
-            />
-          ))}
-        </div>
-      </section>
-
-      <ExtinctionSection />
-    </>
+        <TimelineList eras={eras} />
+      </div>
+    </section>
   );
 }
 

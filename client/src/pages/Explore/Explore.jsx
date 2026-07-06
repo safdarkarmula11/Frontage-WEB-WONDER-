@@ -1,46 +1,80 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+import Loader from "../../components/common/Loader/Loader";
+import ErrorState from "../../components/common/ErrorState/ErrorState";
+import EmptyState from "../../components/common/EmptyState/EmptyState";
+import SectionTitle from "../../components/common/SectionTitle/SectionTitle";
 
 import SearchBar from "./components/SearchBar";
-import FilterBar from "./components/FilterBar";
 import DinosaurGrid from "./components/DinosaurGrid";
 
+import { getAllDinosaurs } from "../../services/dinosaurService";
+
 function Explore() {
+  const [dinosaurs, setDinosaurs] = useState([]);
   const [search, setSearch] = useState("");
-  const [era, setEra] = useState("All");
-  const [diet, setDiet] = useState("All");
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadDinosaurs() {
+      try {
+        const data = await getAllDinosaurs();
+        setDinosaurs(data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load dinosaurs.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadDinosaurs();
+  }, []);
+
+  const filteredDinosaurs = useMemo(() => {
+    const value = search.toLowerCase();
+
+    return dinosaurs.filter((dinosaur) => {
+      return (
+        dinosaur.name.toLowerCase().includes(value) ||
+        dinosaur.scientificName.toLowerCase().includes(value) ||
+        dinosaur.diet.toLowerCase().includes(value) ||
+        dinosaur.era?.name.toLowerCase().includes(value)
+      );
+    });
+  }, [dinosaurs, search]);
+
+  if (loading) return <Loader />;
+
+  if (error) return <ErrorState message={error} />;
 
   return (
-    <main className="min-h-screen bg-black px-6 py-24">
-      <div className="mx-auto max-w-7xl">
-        <h1 className="mb-4 text-5xl font-bold text-white">
-          Explore Dinosaurs
-        </h1>
+    <section className="bg-black py-24">
+      <div className="mx-auto max-w-7xl px-6">
 
-        <p className="mb-10 text-gray-400">
-          Search and discover prehistoric species.
-        </p>
+        <SectionTitle
+          title="Explore Dinosaurs"
+          subtitle="Search dinosaurs by name, scientific name, diet or era."
+        />
 
         <SearchBar
-          search={search}
-          setSearch={setSearch}
+          value={search}
+          onChange={setSearch}
         />
 
-        <div className="my-8">
-          <FilterBar
-            era={era}
-            setEra={setEra}
-            diet={diet}
-            setDiet={setDiet}
+        {filteredDinosaurs.length === 0 ? (
+          <EmptyState
+            title="No Dinosaurs Found"
+            message="Try another search keyword."
           />
-        </div>
+        ) : (
+          <DinosaurGrid dinosaurs={filteredDinosaurs} />
+        )}
 
-        <DinosaurGrid
-          search={search}
-          era={era}
-          diet={diet}
-        />
       </div>
-    </main>
+    </section>
   );
 }
 
