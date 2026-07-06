@@ -1,18 +1,7 @@
 const API_URL = "http://localhost:5000/api";
 
 async function request(endpoint, options = {}) {
-  const token = localStorage.getItem("token");
-
-  const response = await fetch(`${API_URL}${endpoint}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token && {
-        Authorization: `Bearer ${token}`,
-      }),
-      ...options.headers,
-    },
-  });
+  const response = await fetch(`${API_URL}${endpoint}`, options);
 
   const result = await response.json();
 
@@ -20,31 +9,68 @@ async function request(endpoint, options = {}) {
     throw new Error(result.message || "Request failed.");
   }
 
-  return result;
+  return result.data;
 }
 
-export function get(endpoint) {
-  return request(endpoint);
+function createHeaders(token, isJson = true) {
+  const headers = {};
+
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  return headers;
 }
 
-export function post(endpoint, body) {
+export function get(endpoint, token) {
+  return request(endpoint, {
+    headers: createHeaders(token, false),
+  });
+}
+
+export function post(endpoint, body, token, isFormData = false) {
+  const headers = {};
+
+  if (!isFormData) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   return request(endpoint, {
     method: "POST",
-    body: JSON.stringify(body),
+    headers,
+    body: isFormData ? body : JSON.stringify(body),
   });
 }
 
-export function put(endpoint, body) {
+export function put(endpoint, body, token, isFormData = false) {
+  const headers = {};
+
+  if (!isFormData) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   return request(endpoint, {
     method: "PUT",
-    body: JSON.stringify(body),
+    headers,
+    body: isFormData ? body : JSON.stringify(body),
   });
 }
 
-export function remove(endpoint) {
+export function del(endpoint, token) {
   return request(endpoint, {
     method: "DELETE",
+    headers: createHeaders(token, false),
   });
 }
-
-export default API_URL

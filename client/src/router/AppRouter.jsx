@@ -9,6 +9,9 @@ import Dinosaur from "../pages/Dinosaur/Dinosaur";
 import About from "../pages/About/About";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
+import Dashboard from "../pages/Admin/Dashboard";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
+
 
 const router = createBrowserRouter([
   {
@@ -36,8 +39,16 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "login",
+        path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/admin",
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

@@ -6,9 +6,13 @@ function DinosaurCard({ dinosaur }) {
   return (
     <article className="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 transition hover:-translate-y-1 hover:border-green-500">
       <img
-        src={dinosaur.image}
+        src={
+          dinosaur.image.startsWith("http")
+            ? dinosaur.image
+            : `http://localhost:5000${dinosaur.image}`
+        }
         alt={dinosaur.name}
-        className="h-64 w-full object-cover"
+        className="h-[500px] w-full rounded-xl object-cover"
       />
 
       <div className="space-y-4 p-6">

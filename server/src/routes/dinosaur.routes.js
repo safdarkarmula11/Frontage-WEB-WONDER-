@@ -10,6 +10,8 @@ import {
 } from "../controllers/dinosaur.controller.js";
 
 import { authenticate } from "../middleware/auth.middleware.js";
+import { authorizeAdmin } from "../middleware/admin.middleware.js";
+import upload from "../middleware/upload.middleware.js";
 
 const router = Router();
 
@@ -23,10 +25,27 @@ router.get("/:id", getDinosaur);
 
 /* Protected */
 
-router.post("/", authenticate, addDinosaur);
+router.post(
+  "/",
+  authenticate,
+  authorizeAdmin,
+  upload.single("image"),
+  addDinosaur
+);
 
-router.put("/:id", authenticate, editDinosaur);
+router.put(
+  "/:id",
+  authenticate,
+  authorizeAdmin,
+  upload.single("image"),
+  editDinosaur
+);
 
-router.delete("/:id", authenticate, removeDinosaur);
+router.delete(
+  "/:id",
+  authenticate,
+  authorizeAdmin,
+  removeDinosaur
+);
 
 export default router;

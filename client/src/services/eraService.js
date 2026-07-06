@@ -1,17 +1,17 @@
-import { get } from "./api";
+import { get, post, put, del } from "./api";
 
-/**
- * Get all eras
- */
-export async function getAllEras() {
-  const result = await get("/eras");
-  return result.data;
+export function getAllEras() {
+  return get("/eras");
 }
 
-/**
- * Get era by slug
- */
-export async function getEraBySlug(slug) {
-  const result = await get(`/eras/${slug}`);
-  return result.data;
+export function createEra(data, token) {
+  return post("/eras", data, token);
+}
+
+export function updateEra(id, data, token) {
+  return put(`/eras/${id}`, data, token);
+}
+
+export function deleteEra(id, token) {
+  return del(`/eras/${id}`, token);
 }

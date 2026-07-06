@@ -1,46 +1,25 @@
-import { get, post, put, remove } from "./api";
+import { get, post, put, del } from "./api";
 
-/**
- * Get all dinosaurs
- */
-export async function getAllDinosaurs() {
-  const result = await get("/dinosaurs");
-  return result.data;
+export function getAllDinosaurs() {
+  return get("/dinosaurs");
 }
 
-/**
- * Get featured dinosaurs
- */
-export async function getFeaturedDinosaurs() {
-  const result = await get("/dinosaurs/featured");
-  return result.data;
+export function getFeaturedDinosaurs() {
+  return get("/dinosaurs/featured");
 }
 
-/**
- * Get dinosaur by ID
- */
-export async function getDinosaurById(id) {
-  const result = await get(`/dinosaurs/${id}`);
-  return result.data;
+export function getDinosaurById(id) {
+  return get(`/dinosaurs/${id}`);
 }
 
-/**
- * Create dinosaur
- */
-export async function createDinosaur(dinosaur) {
-  return post("/dinosaurs", dinosaur);
+export function createDinosaur(data, token) {
+  return post("/dinosaurs", data, token, true);
 }
 
-/**
- * Update dinosaur
- */
-export async function updateDinosaur(id, dinosaur) {
-  return put(`/dinosaurs/${id}`, dinosaur);
+export function updateDinosaur(id, data, token) {
+  return put(`/dinosaurs/${id}`, data, token, true);
 }
 
-/**
- * Delete dinosaur
- */
-export async function deleteDinosaur(id) {
-  return remove(`/dinosaurs/${id}`);
+export function deleteDinosaur(id, token) {
+  return del(`/dinosaurs/${id}`, token);
 }

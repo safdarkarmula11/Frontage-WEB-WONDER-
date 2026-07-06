@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors";
-
+import path from "path";
 import authRoutes from "./routes/auth.routes.js";
 import eraRoutes from "./routes/era.routes.js";
 import dinosaurRoutes from "./routes/dinosaur.routes.js";
 
 const app = express();
-
+app.use("/uploads", express.static(path.resolve("uploads")));
 /* ===========================
    Global Middleware
 =========================== */

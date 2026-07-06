@@ -4,7 +4,11 @@ function DinosaurHero({ dinosaur }) {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
 
         <img
-          src={dinosaur.image}
+          src={
+            dinosaur.image.startsWith("http")
+              ? dinosaur.image
+              : `http://localhost:5000${dinosaur.image}`
+          }
           alt={dinosaur.name}
           className="h-[500px] w-full rounded-xl object-cover"
         />

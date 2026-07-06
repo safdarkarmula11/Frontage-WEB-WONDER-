@@ -7,6 +7,7 @@ import {
   deleteDinosaur,
 } from "../services/dinosaur.service.js";
 
+
 export async function getDinosaurs(req, res) {
   try {
     const dinosaurs = await getAllDinosaurs();
@@ -70,7 +71,21 @@ export async function getDinosaur(req, res) {
 
 export async function addDinosaur(req, res) {
   try {
-    const dinosaur = await createDinosaur(req.body);
+    const data = {
+      ...req.body,
+    };
+
+    if (req.file) {
+      data.image = `/uploads/dinosaurs/${req.file.filename}`;
+    }
+
+    data.eraId = Number(data.eraId);
+
+    if (typeof data.isFeatured === "string") {
+      data.isFeatured = data.isFeatured === "true";
+    }
+
+    const dinosaur = await createDinosaur(data);
 
     res.status(201).json({
       success: true,
@@ -89,7 +104,21 @@ export async function addDinosaur(req, res) {
 
 export async function editDinosaur(req, res) {
   try {
-    const dinosaur = await updateDinosaur(req.params.id, req.body);
+    const data = {
+      ...req.body,
+    };
+
+    if (req.file) {
+      data.image = `/uploads/dinosaurs/${req.file.filename}`;
+    }
+
+    data.eraId = Number(data.eraId);
+
+    if (typeof data.isFeatured === "string") {
+      data.isFeatured = data.isFeatured === "true";
+    }
+
+    const dinosaur = await updateDinosaur(req.params.id, data);
 
     res.status(200).json({
       success: true,
