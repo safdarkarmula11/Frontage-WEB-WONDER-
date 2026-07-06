@@ -1,5 +1,3 @@
-import featuredDinosaurs from "../data/featuredDinosaurs";
+const API_URL = "http://localhost:5000/api";
 
-export function getFeaturedDinosaurs() {
-  return featuredDinosaurs;
-}
+export default API_URL;

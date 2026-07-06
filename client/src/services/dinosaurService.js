@@ -1,6 +1,5 @@
-import API_URL from "./api";
+import featuredDinosaurs from "../data/featuredDinosaurs";
 
-export async function getFeaturedDinosaurs() {
-  const response = await fetch(`${API_URL}/dinosaurs/featured`);
-  return await response.json();
+export function getFeaturedDinosaurs() {
+  return featuredDinosaurs;
 }
