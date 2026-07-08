@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import Loader from "../../components/common/Loader/Loader";
 import ErrorState from "../../components/common/ErrorState/ErrorState";
@@ -11,8 +12,10 @@ import DinosaurGrid from "./components/DinosaurGrid";
 import { getAllDinosaurs } from "../../services/dinosaurService";
 
 function Explore() {
+  const [searchParams] = useSearchParams();
+
   const [dinosaurs, setDinosaurs] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(searchParams.get("era") || "");
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -55,6 +58,7 @@ function Explore() {
       <div className="mx-auto max-w-7xl px-6">
 
         <SectionTitle
+          eyebrow="The Collection"
           title="Explore Dinosaurs"
           subtitle="Search dinosaurs by name, scientific name, diet or era."
         />
@@ -63,6 +67,12 @@ function Explore() {
           value={search}
           onChange={setSearch}
         />
+
+        {!loading && dinosaurs.length > 0 && (
+          <p className="-mt-8 mb-8 text-sm text-neutral-500">
+            Showing {filteredDinosaurs.length} of {dinosaurs.length} dinosaurs
+          </p>
+        )}
 
         {filteredDinosaurs.length === 0 ? (
           <EmptyState

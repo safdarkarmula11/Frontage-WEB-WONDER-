@@ -37,6 +37,7 @@ function Timeline() {
     <section className="bg-black py-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionTitle
+          eyebrow="230 Million Years"
           title="Geological Timeline"
           subtitle="Explore the major eras of the dinosaurs."
         />

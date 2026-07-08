@@ -40,12 +40,10 @@ function Hero() {
         <div className="max-w-3xl">
           <motion.h1
             variants={item}
-            className="text-6xl font-black leading-tight text-white"
+            className="font-display text-7xl leading-none text-white lg:text-8xl"
           >
             Welcome to
-            <span className="block text-green-500">
-              JurassicVerse
-            </span>
+            <span className="block text-green-500">JurassicVerse</span>
           </motion.h1>
 
           <motion.p

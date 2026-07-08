@@ -1,10 +1,13 @@
-function SectionTitle({
-  title,
-  subtitle,
-}) {
+function SectionTitle({ title, subtitle, eyebrow }) {
   return (
     <div className="mb-14 text-center">
-      <h2 className="text-4xl font-bold text-white">
+      {eyebrow && (
+        <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-green-500">
+          {eyebrow}
+        </p>
+      )}
+
+      <h2 className="font-display text-4xl text-white lg:text-5xl">
         {title}
       </h2>
 
