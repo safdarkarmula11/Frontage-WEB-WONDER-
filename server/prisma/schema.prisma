@@ -42,6 +42,11 @@ model Dinosaur {
 
   image           String
 
+  model3d              String?
+  model3dCreditName    String?
+  model3dCreditUrl     String?
+  model3dLicense       String?
+
   description     String   @db.Text
 
   isFeatured      Boolean  @default(false)

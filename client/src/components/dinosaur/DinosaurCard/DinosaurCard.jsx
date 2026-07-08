@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import EraBadge from "../EraBadge/EraBadge";
 
 function DinosaurCard({ dinosaur }) {
+  const has3D = Boolean(dinosaur.model3d);
+
   return (
     <motion.article
       whileHover={{ y: -8 }}
@@ -25,7 +27,24 @@ function DinosaurCard({ dinosaur }) {
       </div>
 
       <div className="space-y-4 p-6">
-        <EraBadge era={dinosaur.era?.name} />
+        <div className="flex items-center justify-between gap-2">
+          <EraBadge era={dinosaur.era?.name} />
+
+          <span
+            title={
+              has3D
+                ? "3D model available"
+                : "No 3D model for this dinosaur yet"
+            }
+            className={
+              has3D
+                ? "rounded-full bg-green-600/15 px-3 py-1 text-xs font-semibold text-green-400"
+                : "cursor-not-allowed rounded-full bg-neutral-800 px-3 py-1 text-xs font-semibold text-neutral-600"
+            }
+          >
+            🧊 3D
+          </span>
+        </div>
 
         <div>
           <h3 className="text-2xl font-bold text-white">

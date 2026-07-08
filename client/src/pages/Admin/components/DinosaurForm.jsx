@@ -23,6 +23,10 @@ function DinosaurForm({ dinosaur, onClose }) {
     speed: "",
     habitat: "",
     image: null,
+    model3d: "",
+    model3dCreditName: "",
+    model3dCreditUrl: "",
+    model3dLicense: "CC-BY 4.0",
     description: "",
     isFeatured: false,
   });
@@ -51,6 +55,10 @@ function DinosaurForm({ dinosaur, onClose }) {
         speed: dinosaur.speed,
         habitat: dinosaur.habitat,
         image: null,
+        model3d: dinosaur.model3d || "",
+        model3dCreditName: dinosaur.model3dCreditName || "",
+        model3dCreditUrl: dinosaur.model3dCreditUrl || "",
+        model3dLicense: dinosaur.model3dLicense || "CC-BY 4.0",
         description: dinosaur.description,
         isFeatured: dinosaur.isFeatured,
       });
@@ -88,6 +96,10 @@ function DinosaurForm({ dinosaur, onClose }) {
       formData.append("habitat", form.habitat);
       formData.append("description", form.description);
       formData.append("isFeatured", form.isFeatured);
+      formData.append("model3d", form.model3d);
+      formData.append("model3dCreditName", form.model3dCreditName);
+      formData.append("model3dCreditUrl", form.model3dCreditUrl);
+      formData.append("model3dLicense", form.model3dLicense);
 
       if (form.image) {
         formData.append("image", form.image);
@@ -112,7 +124,7 @@ function DinosaurForm({ dinosaur, onClose }) {
     }
   }
 
-    return (
+  return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6">
       <form
         onSubmit={handleSubmit}
@@ -236,6 +248,61 @@ function DinosaurForm({ dinosaur, onClose }) {
               className="w-full rounded bg-neutral-800 p-3 text-white"
             />
           </div>
+
+          <div>
+            <label className="mb-2 block text-white">
+              3D Model Filename (optional)
+            </label>
+
+            <input
+              type="text"
+              name="model3d"
+              placeholder="e.g. t-rex.glb"
+              value={form.model3d}
+              onChange={handleChange}
+              className="w-full rounded bg-neutral-800 p-3 text-white"
+            />
+
+            <p className="mt-1 text-xs text-neutral-500">
+              File must exist in client/public/models/. Leave blank if no 3D
+              model is available for this dinosaur.
+            </p>
+          </div>
+
+          {form.model3d && (
+            <div className="space-y-3 rounded-lg border border-neutral-800 p-4">
+              <p className="text-sm font-semibold text-green-500">
+                3D Model Credit
+              </p>
+
+              <input
+                type="text"
+                name="model3dCreditName"
+                placeholder="Creator name (e.g. ChoochooLi Models)"
+                value={form.model3dCreditName}
+                onChange={handleChange}
+                className="w-full rounded bg-neutral-800 p-3 text-white"
+              />
+
+              <input
+                type="text"
+                name="model3dCreditUrl"
+                placeholder="Sketchfab model link"
+                value={form.model3dCreditUrl}
+                onChange={handleChange}
+                className="w-full rounded bg-neutral-800 p-3 text-white"
+              />
+
+              <input
+                type="text"
+                name="model3dLicense"
+                placeholder="License (e.g. CC-BY 4.0)"
+                value={form.model3dLicense}
+                onChange={handleChange}
+                className="w-full rounded bg-neutral-800 p-3 text-white"
+              />
+            </div>
+          )}
 
           <textarea
             rows="5"
