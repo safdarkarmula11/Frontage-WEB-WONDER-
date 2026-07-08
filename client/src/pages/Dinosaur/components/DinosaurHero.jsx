@@ -7,7 +7,7 @@ function DinosaurHero({ dinosaur }) {
           src={
             dinosaur.image.startsWith("http")
               ? dinosaur.image
-              : `http://localhost:5000${dinosaur.image}`
+              : `${import.meta.env.VITE_API_URL || "http://localhost:5000"}${dinosaur.image}`
           }
           alt={dinosaur.name}
           className="h-[500px] w-full rounded-xl object-cover"

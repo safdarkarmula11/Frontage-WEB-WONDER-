@@ -1,19 +1,28 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import EraBadge from "../EraBadge/EraBadge";
 
 function DinosaurCard({ dinosaur }) {
   return (
-    <article className="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 transition hover:-translate-y-1 hover:border-green-500">
-      <img
-        src={
-          dinosaur.image.startsWith("http")
-            ? dinosaur.image
-            : `http://localhost:5000${dinosaur.image}`
-        }
-        alt={dinosaur.name}
-        className="h-[500px] w-full rounded-xl object-cover"
-      />
+    <motion.article
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="group overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 transition-colors hover:border-green-500"
+    >
+      <div className="overflow-hidden">
+        <motion.img
+          src={
+            dinosaur.image.startsWith("http")
+              ? dinosaur.image
+              : `${import.meta.env.VITE_API_URL || "http://localhost:5000"}${dinosaur.image}`
+          }
+          alt={dinosaur.name}
+          className="h-[500px] w-full object-cover"
+          whileHover={{ scale: 1.08 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        />
+      </div>
 
       <div className="space-y-4 p-6">
         <EraBadge era={dinosaur.era?.name} />
@@ -53,7 +62,7 @@ function DinosaurCard({ dinosaur }) {
           Explore
         </Link>
       </div>
-    </article>
+    </motion.article>
   );
 }
 

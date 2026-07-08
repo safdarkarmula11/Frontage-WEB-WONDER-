@@ -2,6 +2,7 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import StatsCards from "./components/StatsCards";
 import DinosaurTable from "./components/DinosaurTable";
+import EraTable from "./components/EraTable";
 
 function Dashboard() {
   return (
@@ -17,6 +18,10 @@ function Dashboard() {
           <main className="p-8">
 
             <StatsCards />
+
+            <div className="mt-10">
+              <EraTable />
+            </div>
 
             <div className="mt-10">
               <DinosaurTable />

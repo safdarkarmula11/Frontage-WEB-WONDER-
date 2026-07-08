@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { isAuthenticated, logout } from "../../../services/authService";
 
 const navItems = [
@@ -31,7 +32,12 @@ function Navbar() {
   }
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-neutral-800 bg-black/80 backdrop-blur-md">
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="fixed top-0 left-0 z-50 w-full border-b border-neutral-800 bg-black/80 backdrop-blur-md"
+    >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
 
         <NavLink
@@ -100,7 +106,7 @@ function Navbar() {
         </ul>
 
       </nav>
-    </header>
+    </motion.header>
   );
 }
 

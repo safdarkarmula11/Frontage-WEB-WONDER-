@@ -1,21 +1,25 @@
 function DeleteModal({
   dinosaur,
+  itemName,
+  itemLabel = "Dinosaur",
   onCancel,
   onConfirm,
 }) {
+  const name = itemName ?? dinosaur?.name;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
 
       <div className="w-full max-w-md rounded-lg bg-neutral-900 p-8">
 
         <h2 className="text-2xl font-bold text-white">
-          Delete Dinosaur
+          Delete {itemLabel}
         </h2>
 
         <p className="mt-5 text-neutral-300">
           Are you sure you want to delete
           <span className="font-semibold text-red-500">
-            {" "}{dinosaur.name}
+            {" "}{name}
           </span>
           ?
         </p>

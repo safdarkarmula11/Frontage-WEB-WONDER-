@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 import Loader from "../../../components/common/Loader/Loader";
 import ErrorState from "../../../components/common/ErrorState/ErrorState";
@@ -7,6 +8,24 @@ import SectionTitle from "../../../components/common/SectionTitle/SectionTitle";
 import DinosaurCard from "../../../components/dinosaur/DinosaurCard/DinosaurCard";
 
 import { getFeaturedDinosaurs } from "../../../services/dinosaurService";
+
+const grid = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const card = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
 
 function FeaturedDinosaurs() {
   const [dinosaurs, setDinosaurs] = useState([]);
@@ -40,19 +59,31 @@ function FeaturedDinosaurs() {
   return (
     <section className="bg-neutral-950 py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionTitle
-          title="Featured Dinosaurs"
-          subtitle="Meet some of the most iconic prehistoric creatures."
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+        >
+          <SectionTitle
+            title="Featured Dinosaurs"
+            subtitle="Meet some of the most iconic prehistoric creatures."
+          />
+        </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          variants={grid}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.15 }}
+        >
           {dinosaurs.map((dinosaur) => (
-            <DinosaurCard
-              key={dinosaur.id}
-              dinosaur={dinosaur}
-            />
+            <motion.div key={dinosaur.id} variants={card}>
+              <DinosaurCard dinosaur={dinosaur} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
