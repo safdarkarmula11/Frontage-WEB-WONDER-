@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Loader from "../../components/common/Loader/Loader";
@@ -41,6 +42,15 @@ function Timeline() {
           title="Geological Timeline"
           subtitle="Explore the major eras of the dinosaurs."
         />
+
+        <div className="mb-14 text-center">
+          <Link
+            to="/museum-tour"
+            className="inline-block rounded-lg border border-green-600 px-6 py-3 font-semibold text-green-500 transition hover:bg-green-600 hover:text-white"
+          >
+            🏛️ Take the Full Walkthrough Tour
+          </Link>
+        </div>
 
         <TimelineList eras={eras} />
       </div>

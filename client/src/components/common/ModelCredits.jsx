@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllDinosaurs } from "../../services/dinosaurService";
 
-/**
- * Automatically lists credit info for every dinosaur that has a 3D model
- * with credit details filled in. Add as many models as you want in the
- * admin panel — this list grows on its own, nothing to edit here.
- */
 function ModelCredits({ compact = false }) {
   const [credits, setCredits] = useState([]);
 
@@ -14,9 +9,11 @@ function ModelCredits({ compact = false }) {
       try {
         const dinosaurs = await getAllDinosaurs();
 
-        const withCredits = dinosaurs.filter(
-          (dino) => dino.model3d && dino.model3dCreditName
-        );
+        const withCredits = Array.isArray(dinosaurs)
+          ? dinosaurs.filter(
+              (dino) => dino.model3d && dino.model3dCreditName
+            )
+          : [];
 
         setCredits(withCredits);
       } catch (error) {
@@ -27,15 +24,13 @@ function ModelCredits({ compact = false }) {
     loadCredits();
   }, []);
 
-  if (credits.length === 0) {
-    return null;
-  }
+  if (credits.length === 0) return null;
 
   return (
     <ul
       className={
         compact
-          ? "space-y-1 text-xs text-neutral-600"
+          ? "space-y-1 text-xs text-neutral-500"
           : "space-y-1.5 text-sm text-neutral-400"
       }
     >

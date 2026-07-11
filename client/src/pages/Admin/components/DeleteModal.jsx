@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 function DeleteModal({
   dinosaur,
   itemName,
@@ -6,6 +8,15 @@ function DeleteModal({
   onConfirm,
 }) {
   const name = itemName ?? dinosaur?.name;
+
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "Escape") onCancel();
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onCancel]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">

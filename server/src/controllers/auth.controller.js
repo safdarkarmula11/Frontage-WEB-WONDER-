@@ -4,7 +4,75 @@ import jwt from "jsonwebtoken";
 import {
   findUserByEmail,
   findUserById,
+  createUser,
 } from "../services/auth.service.js";
+
+/**
+ * POST /api/auth/register
+ */
+export async function register(req, res) {
+  try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Name, email, and password are required.",
+      });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 6 characters.",
+      });
+    }
+
+    const existing = await findUserByEmail(email);
+
+    if (existing) {
+      return res.status(409).json({
+        success: false,
+        message: "An account with this email already exists.",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await createUser({
+      name,
+      email,
+      password: hashedPassword,
+      role: "user",
+    });
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRES_IN,
+      }
+    );
+
+    res.status(201).json({
+      success: true,
+      data: {
+        token,
+        user,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Registration failed.",
+    });
+  }
+}
 
 /**
  * POST /api/auth/login

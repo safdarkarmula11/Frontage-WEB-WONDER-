@@ -11,7 +11,9 @@ import {
 
 import { authenticate } from "../middleware/auth.middleware.js";
 import { authorizeAdmin } from "../middleware/admin.middleware.js";
+import { validate } from "../middleware/validate.middleware.js";
 import upload from "../middleware/upload.middleware.js";
+import { createDinosaurSchema, updateDinosaurSchema } from "../validations/dinosaur.validation.js";
 
 const router = Router();
 
@@ -30,6 +32,7 @@ router.post(
   authenticate,
   authorizeAdmin,
   upload.single("image"),
+  validate(createDinosaurSchema),
   addDinosaur
 );
 
@@ -38,6 +41,7 @@ router.put(
   authenticate,
   authorizeAdmin,
   upload.single("image"),
+  validate(updateDinosaurSchema),
   editDinosaur
 );
 

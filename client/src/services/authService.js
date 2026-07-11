@@ -3,6 +3,15 @@ import { post } from "./api";
 const TOKEN_KEY = "token";
 const USER_KEY = "user";
 
+export async function register(data) {
+  const result = await post("/auth/register", data);
+
+  localStorage.setItem(TOKEN_KEY, result.token);
+  localStorage.setItem(USER_KEY, JSON.stringify(result.user));
+
+  return result;
+}
+
 export async function login(credentials) {
   const result = await post("/auth/login", credentials);
 

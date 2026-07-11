@@ -10,6 +10,15 @@ import { getAllEras } from "../../../services/eraService";
 function DinosaurForm({ dinosaur, onClose }) {
   const token = localStorage.getItem("token");
 
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "Escape") onClose();
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   const [eras, setEras] = useState([]);
 
   const [form, setForm] = useState({

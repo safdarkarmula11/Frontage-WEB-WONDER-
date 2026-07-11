@@ -8,6 +8,10 @@ import Timeline from "../pages/Timeline/Timeline";
 import Dinosaur from "../pages/Dinosaur/Dinosaur";
 import About from "../pages/About/About";
 import Login from "../pages/Login/Login";
+import Register from "../pages/Login/Register";
+import Quiz from "../pages/Quiz/Quiz";
+import FossilFinds from "../pages/FossilFinds/FossilFinds";
+import MuseumTour from "../pages/MuseumTour/MuseumTour";
 import NotFound from "../pages/NotFound/NotFound";
 import Dashboard from "../pages/Admin/Dashboard";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
@@ -43,9 +47,29 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/admin",
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/fossils",
+        element: <FossilFinds />,
+      },
+      {
+        path: "/museum-tour",
+        element: <MuseumTour />,
+      },
+      {
+        path: "/quiz",
         element: (
           <ProtectedRoute>
+            <Quiz />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin",
+        element: (
+          <ProtectedRoute requireRole="admin">
             <Dashboard />
           </ProtectedRoute>
         ),

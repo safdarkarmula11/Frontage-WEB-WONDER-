@@ -5,6 +5,15 @@ import { createEra, updateEra } from "../../../services/eraService";
 function EraForm({ era, onClose }) {
   const token = localStorage.getItem("token");
 
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "Escape") onClose();
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   const [form, setForm] = useState({
     name: "",
     slug: "",

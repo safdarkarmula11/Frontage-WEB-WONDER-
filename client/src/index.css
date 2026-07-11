@@ -19,6 +19,30 @@ body {
   box-sizing: border-box;
 }
 
+/* Visible focus ring for keyboard navigation (not shown on mouse clicks) */
+:focus-visible {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip link — hidden until focused via keyboard (Tab) */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: #16a34a;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
 .font-display {
   font-family: "Bebas Neue", "Inter", system-ui, sans-serif;
   letter-spacing: 0.02em;

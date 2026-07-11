@@ -4,12 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/common/Button/Button";
 import ErrorState from "../../components/common/ErrorState/ErrorState";
 
-import { login } from "../../services/authService";
+import { register } from "../../services/authService";
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -31,9 +32,9 @@ function Login() {
     setError("");
 
     try {
-      const result = await login(form);
+      await register(form);
 
-      navigate(result.user.role === "admin" ? "/admin" : "/quiz");
+      navigate("/quiz");
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -46,9 +47,13 @@ function Login() {
     <main className="flex min-h-screen items-center justify-center bg-black px-6">
       <div className="w-full max-w-md rounded-xl border border-neutral-800 bg-neutral-900 p-8">
 
-        <h1 className="mb-8 text-center text-4xl font-bold text-white">
-          Login
+        <h1 className="mb-2 text-center text-4xl font-bold text-white">
+          Create Account
         </h1>
+
+        <p className="mb-8 text-center text-sm text-neutral-400">
+          Sign up to take quizzes and save your scores.
+        </p>
 
         {error && <ErrorState message={error} />}
 
@@ -56,6 +61,22 @@ function Login() {
           onSubmit={handleSubmit}
           className="space-y-6"
         >
+
+          <div>
+            <label className="mb-2 block text-white">
+              Name
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-4 py-3 text-white outline-none focus:border-green-500"
+              required
+              minLength={2}
+            />
+          </div>
 
           <div>
             <label className="mb-2 block text-white">
@@ -84,7 +105,12 @@ function Login() {
               onChange={handleChange}
               className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-4 py-3 text-white outline-none focus:border-green-500"
               required
+              minLength={6}
             />
+
+            <p className="mt-1 text-xs text-neutral-500">
+              At least 6 characters.
+            </p>
           </div>
 
           <Button
@@ -92,15 +118,15 @@ function Login() {
             className="w-full"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Creating account..." : "Create Account"}
           </Button>
 
         </form>
 
         <p className="mt-6 text-center text-sm text-neutral-400">
-          Don't have an account?{" "}
-          <Link to="/register" className="text-green-500 hover:underline">
-            Sign up
+          Already have an account?{" "}
+          <Link to="/login" className="text-green-500 hover:underline">
+            Log in
           </Link>
         </p>
 
@@ -109,4 +135,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

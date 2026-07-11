@@ -40,7 +40,7 @@ function Hero() {
         <div className="max-w-3xl">
           <motion.h1
             variants={item}
-            className="font-display text-7xl leading-none text-white lg:text-8xl"
+            className="font-display text-5xl leading-none text-white sm:text-6xl lg:text-8xl"
           >
             Welcome to
             <span className="block text-green-500">JurassicVerse</span>
@@ -54,7 +54,7 @@ function Hero() {
             museum powered by real data.
           </motion.p>
 
-          <motion.div variants={item} className="mt-10 flex gap-4">
+          <motion.div variants={item} className="mt-10 flex flex-col gap-4 sm:flex-row">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/explore"

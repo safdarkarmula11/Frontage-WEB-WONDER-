@@ -6,9 +6,13 @@ import Footer from "../components/layout/Footer/Footer";
 function MainLayout() {
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       <Navbar />
 
-      <main className="min-h-screen pt-16">
+      <main id="main-content" className="min-h-screen pt-16">
         <Outlet />
       </main>
 

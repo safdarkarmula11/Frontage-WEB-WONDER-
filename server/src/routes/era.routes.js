@@ -9,6 +9,9 @@ import {
 } from "../controllers/era.controller.js";
 
 import { authenticate } from "../middleware/auth.middleware.js";
+import { authorizeAdmin } from "../middleware/admin.middleware.js";
+import { validate } from "../middleware/validate.middleware.js";
+import { createEraSchema, updateEraSchema } from "../validations/era.validation.js";
 
 const router = Router();
 
@@ -18,12 +21,12 @@ router.get("/", getEras);
 
 router.get("/:slug", getEra);
 
-/* Protected */
+/* Protected — admin only */
 
-router.post("/", authenticate, addEra);
+router.post("/", authenticate, authorizeAdmin, validate(createEraSchema), addEra);
 
-router.put("/:id", authenticate, editEra);
+router.put("/:id", authenticate, authorizeAdmin, validate(updateEraSchema), editEra);
 
-router.delete("/:id", authenticate, removeEra);
+router.delete("/:id", authenticate, authorizeAdmin, removeEra);
 
 export default router;

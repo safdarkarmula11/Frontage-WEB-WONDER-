@@ -51,22 +51,52 @@ model Dinosaur {
 
   isFeatured      Boolean  @default(false)
 
+  fossilFinds     FossilFind[]
+
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
 
 model User {
   id        Int      @id @default(autoincrement())
-
   name      String
-
   email     String   @unique
-
   password  String
+  role      String   @default("user")
 
-  role      String   @default("admin")
+  quizAttempts QuizAttempt[]
+  fossilFinds  FossilFind[]
 
   createdAt DateTime @default(now())
-
   updatedAt DateTime @updatedAt
+}
+
+model FossilFind {
+  id         Int      @id @default(autoincrement())
+
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+
+  dinosaurId Int?
+  dinosaur   Dinosaur? @relation(fields: [dinosaurId], references: [id])
+
+  image      String
+
+  note       String   @db.Text
+
+  location   String?
+
+  createdAt  DateTime @default(now())
+}
+
+model QuizAttempt {
+  id             Int      @id @default(autoincrement())
+
+  userId         Int
+  user           User     @relation(fields: [userId], references: [id])
+
+  score          Int
+  totalQuestions Int
+
+  createdAt      DateTime @default(now())
 }
