@@ -20,7 +20,7 @@ function DinosaurCard({ dinosaur }) {
               : `${import.meta.env.VITE_API_URL || "http://localhost:5000"}${dinosaur.image}`
           }
           alt={dinosaur.name}
-          className="h-[500px] w-full object-cover"
+          className="h-[200px] w-full object-cover"
           whileHover={{ scale: 1.08 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         />

@@ -9,6 +9,7 @@ import DinosaurCard from "../../../components/dinosaur/DinosaurCard/DinosaurCard
 
 import { getFeaturedDinosaurs } from "../../../services/dinosaurService";
 
+
 const grid = {
   hidden: {},
   show: {
@@ -75,8 +76,7 @@ function FeaturedDinosaurs() {
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
           variants={grid}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
+          animate="show"
         >
           {dinosaurs.map((dinosaur) => (
             <motion.div key={dinosaur.id} variants={card}>
