@@ -77,6 +77,8 @@ export async function addDinosaur(req, res) {
 
     if (req.file) {
       data.image = `/uploads/dinosaurs/${req.file.filename}`;
+    } else if (!dinosaur) {
+      data.image = "/uploads/dinosaurs/coming-soon.png";
     }
 
     data.eraId = Number(data.eraId);

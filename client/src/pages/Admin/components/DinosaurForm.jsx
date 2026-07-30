@@ -83,8 +83,8 @@ function DinosaurForm({ dinosaur, onClose }) {
         type === "checkbox"
           ? checked
           : type === "file"
-          ? files[0]
-          : value,
+            ? files[0]
+            : value,
     }));
   }
 
@@ -254,6 +254,7 @@ function DinosaurForm({ dinosaur, onClose }) {
               name="image"
               accept="image/*"
               onChange={handleChange}
+              required={!dinosaur}
               className="w-full rounded bg-neutral-800 p-3 text-white"
             />
           </div>

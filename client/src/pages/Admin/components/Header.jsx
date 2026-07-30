@@ -18,42 +18,25 @@ function Header({ onMenuClick = () => {} }) {
           aria-label="Open menu"
           className="text-white lg:hidden"
         >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
         <div>
-          <h1 className="text-xl font-bold text-white sm:text-3xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-green-500">
+            Control Center
+          </p>
+          <h1 className="font-display text-2xl text-white sm:text-4xl">
             Dashboard
           </h1>
-
-          <p className="mt-1 hidden text-neutral-400 sm:block">
-            Manage dinosaurs, eras, and museum content.
-          </p>
         </div>
       </div>
 
       <div className="flex items-center gap-3 sm:gap-6">
-
         <div className="hidden text-right sm:block">
-          <p className="font-semibold text-white">
-            Administrator
-          </p>
-
-          <p className="text-sm text-neutral-400">
-            admin@jurassicverse.com
-          </p>
+          <p className="font-semibold text-white">Administrator</p>
+          <p className="text-sm text-neutral-400">admin@jurassicverse.com</p>
         </div>
 
         <button
@@ -62,7 +45,6 @@ function Header({ onMenuClick = () => {} }) {
         >
           Logout
         </button>
-
       </div>
 
     </header>
