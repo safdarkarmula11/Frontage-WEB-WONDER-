@@ -151,3 +151,30 @@ The client runs at `http://localhost:5173`, the API at `http://localhost:5000`.
 ## Built For
 
 Web Wonders 2026 — Jurassic Time theme, a web development competition for first-year engineering students.
+
+---
+
+## Live Deployment
+
+JurassicVerse is deployed and live on Render:
+
+- **Frontend:** https://jurassicverse.onrender.com
+- **Backend API:** https://jurassicverse-api.onrender.com
+- **Database:** PostgreSQL 17 (Render managed)
+
+### Deployment Stack
+| Layer | Platform |
+|---|---|
+| Frontend (Static Site) | Render |
+| Backend (Web Service) | Render |
+| Database | Render PostgreSQL |
+
+### Note on Cold Starts
+The backend runs on Render's free tier, which sleeps after 15 minutes of inactivity. The first request after idle time may take 30-60 seconds to respond while the server wakes up.
+
+### Deploying Your Own Copy
+1. Fork/clone this repository
+2. Create a Render PostgreSQL database (free tier)
+3. Deploy `server/` as a Web Service (Build: `npm install && npx prisma generate`, Start: `node src/server.js`)
+4. Deploy `client/` as a Static Site (Build: `npm install && npm run build`, Publish: `dist`)
+5. Set environment variables on both services as described above
